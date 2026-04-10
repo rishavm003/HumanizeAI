@@ -1,0 +1,82 @@
+# HumanizeAI - Root .gitignore
+
+# Dependencies
+**/node_modules/
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Environment Variables (CRITICAL)
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.development
+**/.env.test
+**/.env.production
+**/secrets.json
+
+# Build Outputs
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+**/.vite/
+**/out/
+
+# Logs
+**/*.log
+**/logs/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/pnpm-debug.log*
+
+# Database & Cache
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/dump.rdb
+**/appendonly.aof
+**/.cache/
+**/.parcel-cache/
+**/.turbo/
+
+# OS Specific
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE & Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.suo
+*.sln
+*.user
+
+# Testing & Coverage
+**/coverage/
+**/*.lcov
+**/.nyc_output/
+**/cypress/videos/
+**/cypress/screenshots/
+**/test-results/
+
+# Temporary
+**/tmp/
+**/temp/
+**/*.tmp
+**/*.temp
+
+# Miscellaneous
+**/*.pem
+**/*.key
+**/*.crt
+.vercel
+.netlify

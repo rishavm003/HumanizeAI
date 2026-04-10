@@ -1,0 +1,27 @@
+# Frontend Specific Gitignore
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment
+.env
+.env.*
+
+# Build
+dist/
+dist-ssr/
+build/
+.vite/
+
+# Logs
+*.log
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
