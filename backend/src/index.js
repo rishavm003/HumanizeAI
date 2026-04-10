@@ -64,7 +64,7 @@ if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Frontend URL: ${FRONTEND_URL}`);
-    
+
     // Start background jobs
     startCreditResetJob();
   });
