@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "functions": {
+    "backend/src/index.js": {
+      "runtime": "@vercel/node"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -7,7 +12,12 @@
     },
     {
       "source": "/(.*)",
-      "destination": "frontend/dist/$1"
+      "destination": "frontend/dist/$1",
+      "check": true
+    },
+    {
+      "source": "/(.*)",
+      "destination": "frontend/dist/index.html"
     }
   ],
   "crons": [
