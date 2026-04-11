@@ -14,6 +14,19 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.6.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "groq-sdk": "^0.3.3",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.3.2",
+    "node-cron": "^3.0.3",
+    "stripe": "^22.0.1"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
