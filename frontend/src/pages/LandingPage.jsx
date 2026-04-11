@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useThemeStore } from '../store/theme.store.js';
+import { useAuthStore } from '../store/auth.store.js';
 import { 
   Zap, 
   ShieldCheck, 
@@ -20,7 +21,15 @@ import {
 export default function LandingPage() {
   const { scrollYProgress } = useScroll();
   const { isDarkMode, toggleDarkMode } = useThemeStore();
+  const { session } = useAuthStore();
+  const navigate = useNavigate();
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
+  useEffect(() => {
+    if (session) {
+      navigate('/app');
+    }
+  }, [session, navigate]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#020617] text-slate-900 dark:text-slate-100 overflow-hidden selection:bg-indigo-500/30">

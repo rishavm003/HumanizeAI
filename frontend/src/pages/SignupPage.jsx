@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth.store.js';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,8 +22,14 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  const navigate = useNavigate();
-  const { register, loginWithGoogle } = useAuthStore();
+   const navigate = useNavigate();
+  const { register, loginWithGoogle, session } = useAuthStore();
+
+  useEffect(() => {
+    if (session) {
+      navigate('/app');
+    }
+  }, [session, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
