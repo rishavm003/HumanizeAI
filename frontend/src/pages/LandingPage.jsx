@@ -56,10 +56,10 @@ export default function LandingPage() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2.5 group cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300">
-                <Sparkles className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-lg shadow-indigo-500/10 group-hover:scale-110 transition-all duration-300 border border-slate-100 dark:border-white/10 overflow-hidden p-1.5">
+                <img src="/favicon.png" alt="Logo" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-400">HumanizeAI</span>
+              <span className="text-xl font-black bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-400">Humanize AI</span>
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
@@ -383,7 +383,7 @@ export default function LandingPage() {
 
       <footer className="relative z-10 pt-10 pb-20 px-4 border-t border-slate-100 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center text-xs font-bold text-slate-400 dark:text-slate-600 tracking-widest uppercase">
-          &copy; 2026 HumanizeAI. All rights reserved. Built for humans.
+          &copy; 2026 Humanize AI. All rights reserved. Built for humans.
         </div>
       </footer>
     </div>

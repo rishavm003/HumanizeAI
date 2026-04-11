@@ -91,7 +91,8 @@ export default function AdminUsersPage() {
       }, 1500);
       
     } catch (err) {
-      alert(err.message);
+      console.error('Credit update error:', err);
+      alert(`Error: ${err.message}`);
     } finally {
       setUpdatingCredits(false);
     }
@@ -210,11 +211,14 @@ export default function AdminUsersPage() {
               onClick={() => !updatingCredits && setSelectedUser(null)}
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
             />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-white dark:bg-slate-950 rounded-[48px] border border-slate-200 dark:border-white/10 shadow-2xl z-[101] overflow-hidden"
-            >
-              <div className="p-8">
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-[101] pointer-events-none">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95, y: 10 }} 
+                animate={{ opacity: 1, scale: 1, y: 0 }} 
+                exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                className="relative w-full max-w-md bg-white dark:bg-slate-950 rounded-[40px] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden max-h-[min(650px,90vh)] flex flex-col pointer-events-auto"
+              >
+              <div className="p-8 overflow-y-auto">
                  <div className="flex justify-between items-center mb-8">
                     <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
                        <Coins className="w-6 h-6" />
@@ -276,7 +280,8 @@ export default function AdminUsersPage() {
                     </button>
                  </div>
               </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

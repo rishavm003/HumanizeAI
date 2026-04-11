@@ -115,8 +115,8 @@ export class CreditService {
    * Add credits to user account
    */
   static async addCredits(userId, amount, reason, metadata = {}) {
-    if (amount <= 0) {
-      throw new Error('Amount must be positive');
+    if (amount === 0) {
+      throw new Error('Amount cannot be zero');
     }
 
     // 1. Update database using the atomic add function

@@ -23,8 +23,8 @@ RETURNS INTEGER AS $$
 DECLARE
   new_balance INTEGER;
 BEGIN
-  IF p_amount <= 0 THEN
-    RAISE EXCEPTION 'Amount must be positive';
+  IF p_amount = 0 THEN
+    RAISE EXCEPTION 'Amount cannot be zero';
   END IF;
   
   UPDATE public.profiles

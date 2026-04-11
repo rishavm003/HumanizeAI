@@ -35,10 +35,10 @@ const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {/* Logo Section */}
         <div className="h-20 flex items-center justify-between px-6 border-b border-slate-100 dark:border-white/5 shrink-0">
           <Link to="/app" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
-              <Sparkles className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-white dark:bg-white/5 flex items-center justify-center shadow-lg shadow-indigo-500/10 group-hover:scale-110 transition-all duration-300 border border-slate-100 dark:border-white/10 overflow-hidden p-1.5">
+              <img src="/favicon.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">HumanizeAI</span>
+            <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">Humanize AI</span>
           </Link>
           <button className="md:hidden p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" onClick={closeMobile}>
             <X className="w-6 h-6" />

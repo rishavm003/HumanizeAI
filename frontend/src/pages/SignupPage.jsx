@@ -102,11 +102,11 @@ export default function SignupPage() {
         <div className="text-center mb-6">
           <motion.div
             initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12, delay: 0.2 }}
-            className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20 mb-3"
+            className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-white/5 shadow-lg shadow-indigo-500/10 mb-3 border border-slate-100 dark:border-white/10 overflow-hidden p-2"
           >
-            <Sparkles className="w-6 h-6" />
+            <img src="/favicon.png" alt="Logo" className="w-full h-full object-contain" />
           </motion.div>
-          <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white leading-none">HumanizeAI</h1>
+          <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white leading-none">Humanize AI</h1>
         </div>
 
         <div className="bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl p-6 sm:p-8 rounded-[32px] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.3)] border border-white dark:border-white/10 relative overflow-hidden">
