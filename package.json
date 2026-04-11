@@ -8,7 +8,8 @@
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue,bgMagenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
     "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
-    "db:setup": "node backend/src/db/migrate.js"
+    "db:setup": "node backend/src/db/migrate.js",
+    "build": "npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",

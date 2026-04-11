@@ -86,4 +86,33 @@ router.post('/users/:id/credits', async (req, res, next) => {
   }
 });
 
+/**
+ * POST /api/admin/reset-credits-task
+ * Scheduled task for monthly credit resets (Vercel Cron)
+ */
+router.get('/reset-credits-task', async (req, res, next) => {
+  try {
+    // 1. Fetch users for reset
+    const users = await CreditService.getUsersForMonthlyReset();
+    
+    if (users.length === 0) {
+      return res.json({ success: true, message: 'No users due for reset today' });
+    }
+
+    // 2. Perform resets
+    const results = await Promise.allSettled(
+      users.map(user => CreditService.resetMonthlyCredits(user.id))
+    );
+
+    const successCount = results.filter(r => r.status === 'fulfilled').length;
+    
+    res.json({ 
+      success: true, 
+      message: `Successfully reset credits for ${successCount}/${users.length} users` 
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;
