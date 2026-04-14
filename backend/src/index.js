@@ -31,11 +31,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api/rewrite', rewriteRoutes);
-app.use('/api/credits', creditRoutes);
-app.use('/api/admin', adminRoutes);
+const apiRouter = express.Router();
+apiRouter.use('/auth', authRoutes);
+apiRouter.use('/profile', profileRoutes);
+apiRouter.use('/rewrite', rewriteRoutes);
+apiRouter.use('/credits', creditRoutes);
+apiRouter.use('/admin', adminRoutes);
+
+// Mount at both root and /api to be robust in Vercel
+app.use('/api', apiRouter);
+app.use('/', apiRouter);
 
 // Health check
 app.get('/health', (req, res) => {
