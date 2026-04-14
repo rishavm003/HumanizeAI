@@ -26,8 +26,11 @@ export const useAuthStore = create((set, get) => ({
       const { session } = useAuthStore.getState();
       if (!session?.access_token) return;
 
+      const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      const targetUrl = `${baseUrl.replace(/\/$/, '')}/api/credits`;
+      
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || ''}/api/credits`,
+        targetUrl,
         {
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -37,11 +40,16 @@ export const useAuthStore = create((set, get) => ({
 
       if (!response.ok) {
         const contentType = response.headers.get('content-type');
+        const rawBody = await response.text();
         if (contentType && contentType.includes('text/html')) {
-          console.error('Credit refresh failed: API returned HTML. Please check deployment routing.');
+          console.error(`[AuthStore] Credit refresh failed: API returned HTML at ${targetUrl}. Snippet: ${rawBody.substring(0, 50)}`);
         } else {
-          const errorData = await response.json().catch(() => ({}));
-          console.error('Credit refresh failed:', errorData.message || response.statusText);
+          try {
+            const errorData = JSON.parse(rawBody);
+            console.error('[AuthStore] Credit refresh failed:', errorData.message || response.statusText);
+          } catch (e) {
+            console.error(`[AuthStore] Credit refresh error (${response.status}):`, rawBody.substring(0, 50));
+          }
         }
         return;
       }
