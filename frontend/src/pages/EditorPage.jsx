@@ -54,8 +54,10 @@ export default function EditorPage() {
     setError('');
     
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
-      const targetUrl = `${baseUrl.replace(/\/$/, '')}/api/rewrite`;
+      let baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      // Strip trailing slash and trailing /api if present to avoid double-prefixing
+      baseUrl = baseUrl.replace(/\/$/, '').replace(/\/api$/, '');
+      const targetUrl = `${baseUrl}/api/rewrite`;
       
       console.log(`[MagicEditor] Attempting transformation at: ${targetUrl}`);
       

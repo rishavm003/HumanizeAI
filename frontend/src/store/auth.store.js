@@ -26,8 +26,10 @@ export const useAuthStore = create((set, get) => ({
       const { session } = useAuthStore.getState();
       if (!session?.access_token) return;
 
-      const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
-      const targetUrl = `${baseUrl.replace(/\/$/, '')}/api/credits`;
+      let baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      // Strip trailing slash and trailing /api if present to avoid double-prefixing
+      baseUrl = baseUrl.replace(/\/$/, '').replace(/\/api$/, '');
+      const targetUrl = `${baseUrl}/api/credits`;
       
       const response = await fetch(
         targetUrl,
