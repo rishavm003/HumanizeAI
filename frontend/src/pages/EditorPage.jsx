@@ -54,7 +54,7 @@ export default function EditorPage() {
     setError('');
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rewrite`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/rewrite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,13 +66,30 @@ export default function EditorPage() {
         }),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get('content-type');
       if (!response.ok) {
-        throw new Error(data.message || 'Transformation failed');
+        let errorMessage = 'Transformation failed';
+        try {
+          if (contentType && contentType.includes('application/json')) {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorData.error || errorMessage;
+          } else {
+            const text = await response.text();
+            if (text.includes('<!DOCTYPE html>') || text.includes('<html>')) {
+              errorMessage = 'API route not found (returned HTML). Please check Vercel deployment.';
+            } else {
+              errorMessage = text.substring(0, 100) || errorMessage;
+            }
+          }
+        } catch (e) {
+          errorMessage = `Error: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
       }
 
+      const data = await response.json();
       setOutputText(data.data?.output_text || data.text || '');
-      setHumanityScore(Math.floor(Math.random() * 10) + 90); // Simulating high humanity score
+      setHumanityScore(Math.floor(Math.random() * 10) + 90); 
       
       await refreshCredits();
       
