@@ -38,14 +38,19 @@ apiRouter.use('/rewrite', rewriteRoutes);
 apiRouter.use('/credits', creditRoutes);
 apiRouter.use('/admin', adminRoutes);
 
+// Health check
+apiRouter.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), environment: process.env.NODE_ENV });
+});
+
+// 404 handler for API to ensure it always returns JSON, never HTML
+apiRouter.use((req, res) => {
+  res.status(404).json({ error: 'API endpoint not found', path: req.originalUrl });
+});
+
 // Mount at both root and /api to be robust in Vercel
 app.use('/api', apiRouter);
 app.use('/', apiRouter);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
 
 // Error handler
 app.use(errorHandler);

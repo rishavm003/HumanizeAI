@@ -54,7 +54,14 @@ export default function EditorPage() {
     setError('');
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/rewrite`, {
+      let baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
+      // Strip trailing slash and trailing /api if present to avoid double-prefixing
+      baseUrl = baseUrl.replace(/\/$/, '').replace(/\/api$/, '');
+      const targetUrl = `${baseUrl}/api/rewrite`;
+      
+      console.log(`[MagicEditor] Attempting transformation at: ${targetUrl}`);
+      
+      const response = await fetch(targetUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,22 +75,23 @@ export default function EditorPage() {
 
       const contentType = response.headers.get('content-type');
       if (!response.ok) {
-        let errorMessage = 'Transformation failed';
-        try {
-          if (contentType && contentType.includes('application/json')) {
-            const errorData = await response.json();
+        let errorMessage = `HTTP Error ${response.status}`;
+        const rawBody = await response.text();
+        
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = JSON.parse(rawBody);
             errorMessage = errorData.message || errorData.error || errorMessage;
-          } else {
-            const text = await response.text();
-            if (text.includes('<!DOCTYPE html>') || text.includes('<html>')) {
-              errorMessage = 'API route not found (returned HTML). Please check Vercel deployment.';
-            } else {
-              errorMessage = text.substring(0, 100) || errorMessage;
-            }
+          } catch (e) {
+            errorMessage = `JSON Parse Error: ${rawBody.substring(0, 50)}...`;
           }
-        } catch (e) {
-          errorMessage = `Error: ${response.status} ${response.statusText}`;
+        } else if (rawBody.includes('<!DOCTYPE html>') || rawBody.includes('<html>')) {
+          errorMessage = `API returned HTML (404/Routing Error). Snippet: ${rawBody.substring(0, 100)}...`;
+          console.error('[MagicEditor] HTML Response received:', rawBody);
+        } else {
+          errorMessage = rawBody.substring(0, 100) || errorMessage;
         }
+        
         throw new Error(errorMessage);
       }
 
